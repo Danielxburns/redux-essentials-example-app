@@ -11,9 +11,11 @@ import { PostsList } from './features/posts/postsList'
 import { AddPostForm } from './features/posts/addPostForm'
 import { SinglePostPage } from './features/posts/singelPostsPage'
 import { EditPostForm } from './features/posts/editPostForm'
+import { UsersList } from './features/users/usersList'
+import { UserPage } from './features/users/userPage'
+import { NotificationsList } from './features/notifications/notificationsList'
 
 function App() {
-
   return (
     <Router>
       <Navbar />
@@ -29,8 +31,11 @@ function App() {
               </React.Fragment>
             )}
           />
-          <Route exact path="/posts/:postId" component={SinglePostPage}/>
+          <Route exact path="/posts/:postId" component={SinglePostPage} />
           <Route exact path="/editPost/:postId" component={EditPostForm} />
+          <Route exact path="/users" component={UsersList} />
+          <Route exact path="/users/:userId" component={UserPage} />
+          <Route exact path="/notifications" component={NotificationsList} />
           <Redirect to="/" />
         </Switch>
       </div>

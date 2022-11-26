@@ -1,15 +1,26 @@
-import { createSlice } from '@reduxjs/toolkit/dist'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit/dist'
+import { client } from '../../api/client'
 
-const initialState = [
-  { id: '0', name: 'Tianna Jenkins' },
-  { id: '1', name: 'Kevin Grant' },
-  { id: '2', name: 'Madison Price' },
-]
+const initialState = []
+
+export const fetchUsers = createAsyncThunk('user/fetchUsers', async () => {
+  const response = await client.get('/fakeApi/users')
+  return response.data
+})
 
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {},
+  extraReducers(builder) {
+    builder.addCase(fetchUsers.fulfilled, (state, action) => {
+      return action.payload
+    })
+  },
 })
 
 export default usersSlice.reducer
+
+export const selectAllUsers = (state) => state.users
+export const selectUserById = (state, userId) =>
+  state.users.find((user) => user.id === userId)
